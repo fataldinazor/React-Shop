@@ -41,6 +41,7 @@ function Cart() {
     const index = cartItems.findIndex((item) => item.id === product.id);
     const value = cartItems[index].value;
     const updatedCartItems = [...cartItems];
+    if(value===1) return removeItem(product);
     if (value > 1) {
       updatedCartItems[index] = {
         ...updatedCartItems[index],

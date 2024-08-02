@@ -111,17 +111,17 @@ export default function ProductDetail() {
               </div>
             </div>
             <div className="flex flex-col">
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-2 mt-4">
                 {isItemPresent(product) ? (
-                  <div className="item-qty flex items-center justify-center">
+                  <div className="item-qty flex items-center justify-center py-2">
                     <button
-                      onClick={() => reduceProductQuantity(product)}
+                      onClick={() => getItemQty(product)>1 ?reduceProductQuantity(product): removeItem(product)}
                       className="text-xl  text-red-500 hover:text-red-700  px-2"
                     >
                       −
                     </button>
                     <div className="border-l h-5 mx-2 "></div>
-                    <span className="text-sm font-semibold text-center px-2">
+                    <span className="text-sm font-bold text-center px-2">
                       {getItemQty(product)}
                     </span>
                     <div className="border-r h-5 mx-2"></div>
@@ -130,12 +130,6 @@ export default function ProductDetail() {
                       className="text-xl text-green-500 hover:text-green-700 px-2"
                     >
                       +
-                    </button>
-                    <button
-                      className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded ml-4"
-                      onClick={() => removeItem(product)}
-                    >
-                      Remove
                     </button>
                   </div>
                 ) : (
