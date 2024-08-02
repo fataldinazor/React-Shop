@@ -88,13 +88,17 @@ function Shop() {
     setCartItems(updatedArray);
   };
 
+  function getCategoryChange(category){
+    
+  }
+
   return (
-    <div className="p-6 bg-gray-100 min-h-screen flex justify-center">
+    <div className="p-6 bg-gray-100 min-h-screen flex justify-center bg-[url(./assets/productsBg1.jpg)] bg-cover bg-no-repeat bg-fixed">
       <div className="w-3/4">
         <div className="mb-6 flex">
           <Form id="search-form" role="search" className="w-2/3">
             <input
-              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-3 border border-purple-700 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-700 bg-black text-white"
               id="q"
               type="search"
               name="q"
@@ -108,12 +112,15 @@ function Shop() {
               }}
             />
           </Form>
-          {/* <Form className="w-1/3 content-center">
-            <select name="" id="">
-              <option value="Clothing">Clothing</option>
-              <option value="Technology">Technology</option>
+          <div className="w-1/3 content-center">
+            <select name="category" onChange={()=>getCategoryChange()}>
+              <option>All</option>
+              <option value="Clothes">Clothing</option>
+              <option value="Electronics">Electronics</option>
+              <option value="Furniture">Furniture</option>
+              <option value="Miscellaneous">Miscellaneous</option>
             </select>
-          </Form> */}
+          </div>
         </div>
 
         <div className="grid auto-rows-fr grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -121,7 +128,7 @@ function Shop() {
           {products.map((product) => (
             <div
               key={product.id}
-              className=" card bg-white shadow-lg rounded-lg overflow-hidden"
+              className=" card bg-black shadow-lg rounded-lg overflow-hidden text-white"
             >
               <img
                 className="w-full h-r8 object-cover"
@@ -131,12 +138,12 @@ function Shop() {
               <div className="p-4 grid auto-rows-fr content-between">
                 <Link
                   to={`/shop/${product.id}`}
-                  className="text-lg font-semibold mb-2 cursor-default hover:underline underline-offset-2 hover:cursor-pointer visited:text-indigo-800"
+                  className="text-lg font-semibold mb-2 cursor-default hover:underline underline-offset-2 hover:cursor-pointer visited:text-purple-400"
                 >
                   {truncateTitle(product.title)}
                 </Link>
                 <p
-                  className="text-gray-600 text-sm mb-3"
+                  className="text-gray-500 text-sm mb-3"
                   style={{ minHeight: "3em" }}
                 >
                   {truncate(product.description)}
@@ -172,7 +179,7 @@ function Shop() {
                     ) : (
                       <button
                         onClick={() => addNewProductToCart(product)}
-                        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-3 rounded-full"
+                        className="bg-violet-900 hover:bg-violet-600 text-white font-bold py-1 px-3 rounded-full"
                       >
                         Add to Cart
                       </button>

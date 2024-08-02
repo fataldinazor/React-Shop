@@ -1,6 +1,23 @@
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext, Link } from "react-router-dom";
 import paymentPng from "../assets/paymentOptions.png";
 import { truncate } from "../../utils";
+
+const EmptyCart = () => {
+  return (
+    <div className="flex flex-col items-center justify-center flex-grow bg-gray-100 p-4">
+      <h1 className="text-3xl font-bold mb-4">Your Cart is Empty</h1>
+      <p className="text-gray-600 mb-4">
+        Looks like you haven&apos;t added anything to your cart yet.
+      </p>
+      <Link
+        to="/shop"
+        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+      >
+        Shop Now
+      </Link>
+    </div>
+  );
+};
 
 function Cart() {
   const [cartItems, setCartItems] = useOutletContext();
@@ -13,8 +30,6 @@ function Cart() {
     setCartItems([]);
     navigate(path);
   };
-
-  if (cartItems.length === 0) return <div>Add something to Cart</div>;
 
   const totalCartValue = () => {
     let totalCost = 0;
@@ -41,7 +56,7 @@ function Cart() {
     const index = cartItems.findIndex((item) => item.id === product.id);
     const value = cartItems[index].value;
     const updatedCartItems = [...cartItems];
-    if(value===1) return removeItem(product);
+    if (value === 1) return removeItem(product);
     if (value > 1) {
       updatedCartItems[index] = {
         ...updatedCartItems[index],
@@ -58,10 +73,11 @@ function Cart() {
     setCartItems(updatedArray);
   };
 
+  if(cartItems.length===0) return <EmptyCart/>
+
   return (
     <div className="cart-div grid grid-cols-5 gap-x-5 px-2 py-1">
-
-      <div className="leftSide col-span-3 p-4 bg-white shadow my-2">
+      <div className="leftSide col-span-3 p-4 my-2">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-semibold">Your Shopping Cart</h2>
           <span className="text-lg font-medium text-gray-700">

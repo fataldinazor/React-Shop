@@ -3,6 +3,7 @@ import {
   useLoaderData,
   useOutletContext,
 } from "react-router-dom";
+import productBg from "../assets/productBg.jpg"
 
 export function productDetailLoader({ params }) {
   return getProduct(params.id);
@@ -76,8 +77,8 @@ export default function ProductDetail() {
   };
 
   return (
-    <div className="bg-slate-50 bg-cover bg-no-repeat bg-[url(./assets/white-bg.jpg)] h-full flex items-center">
-      <div className="product-container max-w-5xl flex-grow-0 mx-auto p-6 bg-white rounded-lg shadow-md">
+    <div className="bg-slate-50 bg-cover bg-no-repeat h-full flex items-center" style={{backgroundImage:`url(${productBg})`}}>
+      <div className="product-container max-w-5xl flex-grow-0 mx-auto p-6 bg-black text-white rounded-lg shadow-md">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="flex">
             <div className="flex flex-col space-y-2 mr-4 justify-center">
@@ -87,7 +88,7 @@ export default function ProductDetail() {
                   src={image}
                   alt={`${product.title} ${index + 1}`}
                   className={`w-20 h-20 object-cover cursor-pointer rounded-md ${
-                    mainImage === image ? "border-2 border-blue-500" : ""
+                    mainImage === image ? "border-2 border-purple-700" : ""
                   }`}
                   onClick={() => setMainImage(image)}
                 />
@@ -105,8 +106,8 @@ export default function ProductDetail() {
           <div className="flex flex-col justify-between">
             <div>
               <h1 className="text-2xl font-bold mb-4">{product.title}</h1>
-              <p className="text-gray-700 mb-4">{product.description}</p>
-              <div className="text-xl font-bold mt-2 bg-slate-200 px-4 py-1 b rounded-full inline-block">
+              <p className="text-gray-300 mb-4">{product.description}</p>
+              <div className="text-xl font-bold mt-2 bg-purple-950 px-5 py-1 b rounded-full inline-block">
                 Price: ${product.price}
               </div>
             </div>
@@ -135,7 +136,7 @@ export default function ProductDetail() {
                 ) : (
                   <button
                     onClick={() => addNewProductToCart(product)}
-                    className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                    className="bg-purple-600 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded"
                   >
                     Add to Cart
                   </button>
