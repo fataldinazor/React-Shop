@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 function Home() {
@@ -9,7 +8,7 @@ function Home() {
           <h1 className="text-4xl font-bold mb-4">
             Welcome to React Store
           </h1>
-          <p className="text-lg mb-6 text-center max-w-xl">
+          <p className="text-lg mb-6 text-center max-w-xl text-gray-300">
             Discover a wide range of products, from electronics to clothing, all
             at amazing prices. Our store is committed to providing high-quality
             products and excellent customer service. Shop now and enjoy a
@@ -17,7 +16,7 @@ function Home() {
           </p>
           <Link
             to="/shop"
-            className="bg-white text-blue-500 hover:text-blue-600 font-bold py-2 px-4 rounded-full"
+            className="bg-pink-700 text-white hover:bg-pink-800 font-bold py-2 px-4 rounded-full"
           >
             Shop Now
           </Link>

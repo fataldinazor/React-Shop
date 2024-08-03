@@ -1,17 +1,18 @@
 import { useNavigate, useOutletContext, Link } from "react-router-dom";
 import paymentPng from "../assets/paymentOptions.png";
 import { truncate } from "../../utils";
+import cartBg from "../assets/cartBg.jpg"
 
 const EmptyCart = () => {
   return (
-    <div className="flex flex-col items-center justify-center flex-grow bg-gray-100 p-4">
+    <div className="flex flex-col items-center justify-center flex-grow bg-black text-white p-4">
       <h1 className="text-3xl font-bold mb-4">Your Cart is Empty</h1>
-      <p className="text-gray-600 mb-4">
+      <p className="text-gray-400 mb-4">
         Looks like you haven&apos;t added anything to your cart yet.
       </p>
       <Link
         to="/shop"
-        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+        className="bg-purple-700 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded"
       >
         Shop Now
       </Link>
@@ -76,11 +77,11 @@ function Cart() {
   if(cartItems.length===0) return <EmptyCart/>
 
   return (
-    <div className="cart-div grid grid-cols-5 gap-x-5 px-2 py-1">
-      <div className="leftSide col-span-3 p-4 my-2">
-        <div className="flex justify-between items-center mb-4">
+    <div className="cart-div flex-grow grid grid-cols-5 gap-x-5 px-2 py-1 bg-cover" style={{backgroundImage:`url(${cartBg})`}}>
+      <div className="leftSide col-span-3 p-4 my-2 bg-black bg-opacity-50">
+        <div className="flex justify-between items-center mb-4 text-white ">
           <h2 className="text-2xl font-semibold">Your Shopping Cart</h2>
-          <span className="text-lg font-medium text-gray-700">
+          <span className="text-lg font-medium ">
             {cartItems.length} {cartItems.length === 1 ? "Item" : "Items"}
           </span>
         </div>
@@ -89,7 +90,7 @@ function Cart() {
           {cartItems.map((item) => (
             <div
               key={item.id}
-              className="item-card flex gap-4 p-4 shadow-md rounded-xl bg-gray-50"
+              className="item-card flex gap-4 p-4 shadow-md rounded-xl bg-black text-white"
             >
               <img
                 src={item.product.images[0]}
@@ -101,7 +102,7 @@ function Cart() {
                   <div className="productTitle font-semibold text-xl mb-2">
                     {item.product.title}
                   </div>
-                  <div className="text-gray-700 text-sm mb-2">
+                  <div className="text-gray-400 text-sm mb-2">
                     {truncate(item.product.description, 100)}
                   </div>
                 </div>
@@ -125,7 +126,7 @@ function Cart() {
                       +
                     </button>
                   </div>
-                  <div className="item-amount text-lg font-semibold text-gray-900">
+                  <div className="item-amount text-lg font-semibold ">
                     ${item.product.price * item.value}
                   </div>
                 </div>
@@ -141,18 +142,18 @@ function Cart() {
         </div>
       </div>
 
-      <div className="rightSide col-span-2 my-2 p-4 bg-gray-50 rounded-lg shadow-md self-start sticky top-0">
-        <div className="total-bill flex justify-between items-center border-b pb-2 mb-4">
-          <div className="text-lg font-medium text-gray-700">
+      <div className="rightSide col-span-2 my-2 p-4 bg-black rounded-lg shadow-md self-start sticky top-0 text-white">
+        <div className="total-bill flex justify-between items-center border-b pb-2 mb-4 ">
+          <div className="text-lg font-medium ">
             Estimated Price
           </div>
-          <div className="text-xl font-semibold text-gray-900">
+          <div className="text-xl font-semibold ">
             ${totalCartValue()}
           </div>
         </div>
         <button
           onClick={routeChange}
-          className="w-full py-2 mb-4 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition-colors duration-300 ease-in-out"
+          className="w-full py-2 mb-4 bg-purple-900 text-white font-semibold rounded-lg hover:bg-blue-600 transition-colors duration-300 ease-in-out"
         >
           Proceed to Checkout
         </button>

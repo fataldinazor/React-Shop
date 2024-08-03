@@ -5,8 +5,8 @@ import Header from './Header'
 function Root() {
   const [cartItems, setCartItems]=useState([]);
   return (
-    <div className='h-screen flex flex-col'>
-      <Header/>
+    <div className='h-screen flex flex-col '>
+      <Header cartItems={cartItems} />
       <Outlet context={[cartItems, setCartItems]}/>
     </div>
   )
