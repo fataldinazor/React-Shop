@@ -1,5 +1,4 @@
 // src/AboutPage.jsx
-import React from "react";
 import aboutBg from "../assets/about2.jpg";
 import pfp from "../assets/fataldianzor.jpg";
 const About = () => {

@@ -2,9 +2,8 @@ import { useNavigate, Link } from "react-router-dom";
 import paymentPng from "../assets/paymentOptions.png";
 import { truncate } from "../../utils";
 import cartBg from "../assets/cartBg.jpg";
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import { CartContext } from "../context/cartContext";
-import { motion } from "framer-motion";
 
 const EmptyCart = () => {
   return (
@@ -40,13 +39,12 @@ function Cart() {
     navigate(path);
   };
 
-  const totalCartValue = () => {
-    let totalCost = 0;
-    cartItems.forEach((item) => {
-      totalCost += item.product.price * item.value;
-    });
-    return totalCost;
-  };
+  const totalPrice = useMemo(() => {
+    cartItems.reduce(
+      (total, item) => total + item.product.price * item.value,
+      0
+    );
+  }, [cartItems]);
 
   if (cartItems.length === 0) return <EmptyCart />;
 
@@ -122,7 +120,7 @@ function Cart() {
       <div className="rightSide col-span-2 my-2 p-4 bg-black rounded-lg shadow-md self-start sticky top-0 text-white animate-fadeIn">
         <div className="total-bill flex justify-between items-center border-b pb-2 mb-4">
           <div className="text-lg font-medium">Estimated Price</div>
-          <div className="text-xl font-semibold">${totalCartValue()}</div>
+          <div className="text-xl font-semibold">${totalPrice}</div>
         </div>
         <button
           onClick={routeChange}

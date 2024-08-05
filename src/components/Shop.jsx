@@ -125,7 +125,7 @@ function Shop() {
                         Read more
                       </Link>
                     </p>
-                    <div className="flex items-center justify-between mt-auto">
+                    <div className="flex items-center justify-between mt-3">
                       <span className="text-xl font-bold">
                         ${product.price}
                       </span>
