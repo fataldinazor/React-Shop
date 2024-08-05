@@ -5,15 +5,17 @@ import pfp from "../assets/fataldianzor.jpg";
 const About = () => {
   return (
     <div
-      className="flex-grow flex bg-contain bg-no-repeat bg-black bg-fixed justify-end"
-      style={{ backgroundImage: `url(${aboutBg})`, backgroundPosition:"left"  }}
+      className="flex-grow flex bg-contain bg-no-repeat bg-black bg-fixed justify-end overflow-hidden"
+      style={{ backgroundImage: `url(${aboutBg})`, backgroundPosition: "left" }}
     >
-      <div className="w-1/2 md:w-7/12 flex bg-black justify-end my-4 mx-6 bg-opacity-90 rounded-2xl text-white shadow-lg">
-        <div className="AboutPrj w-full md:w-1/2 my-2 mx-2 bg-blue-950 bg-opacity-30 rounded-lg">
+      <div className="w-1/2 md:w-7/12 flex bg-black justify-end my-4 mx-6 bg-opacity-90 rounded-2xl text-white shadow-lg animate-fadeIn">
+        <div className="AboutPrj w-full md:w-1/2 my-2 mx-2 bg-blue-950 bg-opacity-30 rounded-lg animate-slideInFromLeft">
           <div className="bg-opacity-100 h-full flex flex-col justify-evenly p-4">
             <div>
-              <h1 className="text-2xl font-semibold mb-2 text-pink-500">The React Store</h1>
-              <p className="text-base text-justify text-gray-300">
+              <h1 className="text-2xl font-semibold mb-2 text-pink-500 animate-fadeIn">
+                The React Store
+              </h1>
+              <p className="text-base text-justify text-gray-300 animate-fadeIn">
                 Welcome to React Store, your ultimate destination for a seamless
                 and delightful online shopping experience. At React Store, we
                 pride ourselves on offering a diverse range of high-quality
@@ -22,12 +24,14 @@ const About = () => {
               </p>
             </div>
             <div>
-              <h2 className="text-2xl font-semibold mt-4 mb-2 text-pink-500">Tech Stack</h2>
-              <p className="text-gray-300 text-justify mb-2">
+              <h2 className="text-2xl font-semibold mt-4 mb-2 text-pink-500 animate-fadeIn">
+                Tech Stack
+              </h2>
+              <p className="text-gray-300 text-justify mb-2 animate-fadeIn">
                 Built with React, the website ensures a dynamic and responsive
                 interface.
               </p>
-              <ul className="list-disc list-inside pl-4 text-gray-300">
+              <ul className="list-disc list-inside pl-4 text-gray-300 animate-fadeIn">
                 <li>
                   Utilizing <span className="font-bold">React Router</span> to
                   manage navigation, providing smooth transitions and a
@@ -47,21 +51,30 @@ const About = () => {
                   <span className="font-bold">Tailwind</span> has been used to
                   create the UI of the application.
                 </li>
-                <li>API by <a className="text-bold text-indigo-500" href="https://fakeapi.platzi.com/">Platzi Fake Store API</a>.</li>
+                <li>
+                  API by{" "}
+                  <a
+                    className="text-bold text-indigo-500"
+                    href="https://fakeapi.platzi.com/"
+                  >
+                    Platzi Fake Store API
+                  </a>
+                  .
+                </li>
               </ul>
             </div>
           </div>
         </div>
 
-        <div className="aboutAuthor w-full md:w-1/2 my-2 mx-4 bg-opacity-70 rounded-lg">
+        <div className="aboutAuthor w-full md:w-1/2 my-2 mx-4 bg-opacity-70 rounded-lg animate-slideInFromRight">
           <div className="aboutMe p-4">
-            <div className="flex">
-              <img className="rounded-full w-24  mb-4" src={pfp} alt="Author" />
+            <div className="flex animate-fadeIn">
+              <img className="rounded-full w-24 mb-4" src={pfp} alt="Author" />
               <div className="text-3xl font-semibold ml-10 content-center mb-7 text-pink-500">
                 About Me
               </div>
             </div>
-            <div className="text-gray-300 text-justify">
+            <div className="text-gray-300 text-justify animate-fadeIn">
               <p>
                 I am a passionate frontend developer focused on creating dynamic
                 user interfaces.
@@ -70,18 +83,22 @@ const About = () => {
               <p>
                 With a strong foundation in HTML, CSS, and JavaScript, I build
                 seamless web experiences. My primary tool is React, and I&apos;m
-                also skilled in <span className="font-bold">Tailwind CSS</span> for efficient styling.
+                also skilled in <span className="font-bold">Tailwind CSS</span>{" "}
+                for efficient styling.
               </p>
               <br />
               <p>
-                My portfolio showcases projects using <span className="font-bold">React, vanilla JavaScript
-                and CSS</span>, reflecting my ability to handle diverse frontend
-                challenges. I stay current with trends to deliver high-quality,
-                user-centric solutions.
+                My portfolio showcases projects using{" "}
+                <span className="font-bold">
+                  React, vanilla JavaScript and CSS
+                </span>
+                , reflecting my ability to handle diverse frontend challenges. I
+                stay current with trends to deliver high-quality, user-centric
+                solutions.
               </p>
             </div>
           </div>
-          <div className="myprofiles p-4">
+          <div className="myprofiles p-4 animate-fadeIn">
             <h2 className="text-xl font-semibold mb-4">My Profiles</h2>
             <div className="flex space-x-4">
               <a
@@ -111,7 +128,6 @@ const About = () => {
                   className="w-8 h-8"
                   fill="white"
                 >
-                  {" "}
                   <path d="M41,4H9C6.24,4,4,6.24,4,9v32c0,2.76,2.24,5,5,5h32c2.76,0,5-2.24,5-5V9C46,6.24,43.76,4,41,4z M17,20v19h-6V20H17z M11,14.47c0-1.4,1.2-2.47,3-2.47s2.93,1.07,3,2.47c0,1.4-1.12,2.53-3,2.53C12.2,17,11,15.87,11,14.47z M39,39h-6c0,0,0-9.26,0-10 c0-2-1-4-3.5-4.04h-0.08C27,24.96,26,27.02,26,29c0,0.91,0,10,0,10h-6V20h6v2.56c0,0,1.93-2.56,5.81-2.56 c3.97,0,7.19,2.73,7.19,8.26V39z" />
                 </svg>
               </a>

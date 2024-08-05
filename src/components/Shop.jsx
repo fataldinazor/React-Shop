@@ -1,14 +1,9 @@
-import {
-  useOutletContext,
-  Form,
-  Link,
-  useLoaderData,
-  useSubmit,
-} from "react-router-dom";
+import { Form, Link, useLoaderData, useSubmit } from "react-router-dom";
 import { truncate, truncateTitle } from "../../utils";
 import sortBy from "sort-by";
 import { matchSorter } from "match-sorter";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { CartContext } from "../context/cartContext";
 
 export const shopLoader = async ({ request }) => {
   const url = new URL(request.url);
@@ -31,7 +26,15 @@ const getShop = async (query) => {
 
 function Shop() {
   const { products, q } = useLoaderData();
-  const [cartItems, setCartItems] = useOutletContext();
+  const {
+    cartItems,
+    addNewProductToCart,
+    increaseProductQuantity,
+    reduceProductQuantity,
+    getItemQty,
+    removeItem,
+    isItemPresent,
+  } = useContext(CartContext);
   const [filteredItems, setFilteredItems] = useState(products);
   const [filter, setFilter] = useState("All");
   const submit = useSubmit();
@@ -50,60 +53,12 @@ function Shop() {
     }
   }, [filter, products]);
 
-  function increaseProductQuantity(product) {
-    const index = cartItems.findIndex((item) => item.id === product.id);
-    const updatedCartItems = [...cartItems];
-
-    updatedCartItems[index] = {
-      ...updatedCartItems[index],
-      value: updatedCartItems[index].value + 1,
-    };
-    setCartItems(updatedCartItems);
-  }
-
-  function reduceProductQuantity(product) {
-    const index = cartItems.findIndex((item) => item.id === product.id);
-    const value = cartItems[index].value;
-    const updatedCartItems = [...cartItems];
-    if (value > 1)
-      updatedCartItems[index] = {
-        ...updatedCartItems[index],
-        value: updatedCartItems[index].value - 1,
-      };
-    setCartItems(updatedCartItems);
-  }
-
-  function addNewProductToCart(product) {
-    const newProduct = { id: product.id, product, value: 1 };
-    setCartItems((prevItems) => [...prevItems, newProduct]);
-  }
-
-  function isItemPresent(product) {
-    const index = cartItems.findIndex((item) => item.id === product.id);
-    if (index > -1) return true;
-    else return false;
-  }
-
-  function getItemQty(product) {
-    const index = cartItems.findIndex((item) => item.id === product.id);
-    console.log(index);
-    const qty = cartItems[index].value;
-    return qty;
-  }
-
-  const removeItem = (product) => {
-    const updatedArray = [...cartItems];
-    const index = updatedArray.findIndex((item) => item.id === product.id);
-    updatedArray.splice(index, 1);
-    setCartItems(updatedArray);
-  };
-
   function getCategoryChange(event) {
     setFilter(event.target.value);
   }
 
   return (
-    <div className=" bg-gray-100 min-h-screen flex justify-center bg-[url(./assets/productsBg1.jpg)] bg-cover bg-no-repeat bg-fixed">
+    <div className="bg-gray-100 min-h-screen flex justify-center bg-[url(./assets/productsBg1.jpg)] bg-cover bg-no-repeat bg-fixed">
       <div className="bg-black min-h-screen flex justify-center w-full bg-opacity-30">
         <div className="w-3/4 py-6">
           <div className="mb-6 flex justify-between">
@@ -125,10 +80,10 @@ function Shop() {
                 />
               </Form>
             </div>
-            <div className=" flex content-center bg-indigo-950 rounded-lg px-4 text-white w-fit border-2 border-black b ">
+            <div className="flex content-center bg-indigo-950 rounded-lg px-4 text-white w-fit border-2 border-black">
               <div className="content-center text-bold">Categories:</div>
               <select
-                className="bg-indigo-950 ml-2 outline-none "
+                className="bg-indigo-950 ml-2 outline-none"
                 name="category"
                 onChange={getCategoryChange}
                 value={filter}
@@ -147,39 +102,34 @@ function Shop() {
               {filteredItems.map((product) => (
                 <div
                   key={product.id}
-                  className=" card bg-black shadow-lg rounded-lg overflow-hidden text-white"
+                  className="card bg-black shadow-lg rounded-lg overflow-hidden text-white flex flex-col animate-fadeIn"
                 >
                   <img
-                    className="w-full h-r8 object-cover"
+                    className="w-full h-64 object-cover hover:scale-105 transform transition-transform duration-300"
                     src={product.images[0]}
                     alt={truncateTitle(product.title)}
                   />
-                  <div className="p-4 grid auto-rows-fr content-between">
+                  <div className="p-4 flex flex-col flex-grow">
                     <Link
                       to={`/shop/${product.id}`}
                       className="text-lg font-semibold mb-2 cursor-default hover:underline underline-offset-2 hover:cursor-pointer visited:text-purple-400"
                     >
                       {truncateTitle(product.title)}
                     </Link>
-                    <p
-                      className="text-gray-500 text-sm mb-3"
-                      style={{ minHeight: "3em" }}
-                    >
+                    <p className="text-gray-500 text-sm mb-3 flex-grow">
                       {truncate(product.description)}
-                      {
-                        <Link
-                          to={`/shop/${product.id}`}
-                          className="text-blue-600"
-                        >
-                          Read more
-                        </Link>
-                      }
+                      <Link
+                        to={`/shop/${product.id}`}
+                        className="text-blue-600"
+                      >
+                        Read more
+                      </Link>
                     </p>
-                    <div className="flex items-center justify-between h-fit">
+                    <div className="flex items-center justify-between mt-auto">
                       <span className="text-xl font-bold">
                         ${product.price}
                       </span>
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-center space-x-2 h-8">
                         {isItemPresent(product) ? (
                           <div className="item-qty flex items-center justify-center">
                             <button
@@ -188,7 +138,7 @@ function Shop() {
                                   ? reduceProductQuantity(product)
                                   : removeItem(product)
                               }
-                              className="text-xl  text-red-500 hover:text-red-700 px-2"
+                              className="text-xl text-red-500 hover:text-red-700 px-2"
                             >
                               −
                             </button>
@@ -199,7 +149,7 @@ function Shop() {
                             <div className="border-r h-5 mx-2"></div>
                             <button
                               onClick={() => increaseProductQuantity(product)}
-                              className="text-xl  text-green-500 hover:text-green-700 px-2"
+                              className="text-xl text-green-500 hover:text-green-700 px-2"
                             >
                               +
                             </button>
@@ -207,7 +157,7 @@ function Shop() {
                         ) : (
                           <button
                             onClick={() => addNewProductToCart(product)}
-                            className="bg-violet-900 hover:bg-violet-600 text-white font-bold py-1 px-3 rounded-full"
+                            className="bg-violet-900 hover:bg-violet-600 text-white font-bold py-1 px-3 rounded-full transition-transform duration-300 transform hover:scale-110"
                           >
                             Add to Cart
                           </button>
@@ -220,7 +170,7 @@ function Shop() {
             </div>
           ) : (
             <div className="text-white w-full flex justify-center bg-black px-4 py-2 rounded-lg bg-opacity-70">
-              <div>No products Available in this Categoty</div>
+              <div>No products available in this category</div>
             </div>
           )}
         </div>

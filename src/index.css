@@ -8,11 +8,11 @@
 }
 
 @font-face {
-    font-family: "Glitch";
-    src: url("../public/fonts/Sdglitchrobotdemo-GOPdO.ttf")
+  font-family: "Glitch";
+  src: url("../public/fonts/Sdglitchrobotdemo-GOPdO.ttf");
 }
 
 @font-face {
-    font-family: "Montserrat";
-    src: url("../public/fonts/Montserrat-VariableFont_wght.ttf")
+  font-family: "Montserrat";
+  src: url("../public/fonts/Montserrat-VariableFont_wght.ttf");
 }
