@@ -8,7 +8,6 @@ import { CartContext } from "../context/cartContext";
 export const shopLoader = async ({ request }) => {
   const url = new URL(request.url);
   const q = url.searchParams.get("q");
-
   const products = await getShop(q);
   return { products, q };
 };

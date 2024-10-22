@@ -8,6 +8,7 @@ function cartItemReducer(state, action) {
         { id: action.product.id, product: action.product, value: 1 },
       ];
     }
+
     case "increase_qty": {
       return state.map((item) =>
         item.id === action.product.id
