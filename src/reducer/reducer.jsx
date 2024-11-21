@@ -1,6 +1,7 @@
 export const initialState = [];
 
 function cartItemReducer(state, action) {
+  console.log(action, state);
   switch (action.type) {
     case "add_item": {
       return [
@@ -32,7 +33,7 @@ function cartItemReducer(state, action) {
     }
 
     case "empty_cart": {
-      return state.splice(0, action.cartItems.length);
+      return [];
     }
 
     default:
